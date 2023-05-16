@@ -11,8 +11,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class ThreadPoolConfig {
 
     @Bean("AsyncTaskExecutor")
-    public AsyncTaskExecutor taskExecutor(){
-        ThreadPoolTaskExecutor executor=new ThreadPoolTaskExecutor();
+    public AsyncTaskExecutor taskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 设置核心线程数
         executor.setCorePoolSize(8);
         // 设置最大线程数

@@ -14,21 +14,23 @@ import javax.validation.Valid;
 @RequestMapping("/test")
 @Api("测试Web接口")
 public class TestController {
+
+
     @PostMapping("/sayHello")
     @ApiOperation("最简单的测试方法")
     public R sayHello(@Valid @RequestBody TestSayHelloForm form) {
-        return R.ok().put("message", "Hello,"+form.getName());
+        return R.ok().put("message", "Hello," + form.getName());
     }
 
     @GetMapping("/hi")
-    public R hi(){
+    public R hi() {
         return R.ok();
     }
 
     @PostMapping("/addUser")
     @ApiOperation("添加用户")
-    @RequiresPermissions(value = {"A","B"},logical = Logical.OR)
-    public R addUser(){
+    @RequiresPermissions(value = {"A", "B"}, logical = Logical.OR)
+    public R addUser() {
         return R.ok("用户添加成功");
     }
 

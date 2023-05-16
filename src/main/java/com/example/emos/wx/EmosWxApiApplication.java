@@ -22,6 +22,7 @@ import java.util.List;
 @Slf4j
 @EnableAsync
 public class EmosWxApiApplication {
+
     @Autowired
     private SysConfigDao sysConfigDao;
 
@@ -37,17 +38,17 @@ public class EmosWxApiApplication {
     }
 
     @PostConstruct
-    public void init(){
-        List<SysConfig> list=sysConfigDao.selectAllParam();
-        list.forEach(one->{
-            String key=one.getParamKey();
-            key= StrUtil.toCamelCase(key);
-            String value=one.getParamValue();
-            try{
-                Field field=constants.getClass().getDeclaredField(key);
-                field.set(constants,value);
-            }catch (Exception e){
-                log.error("执行异常",e);
+    public void init() {
+        List<SysConfig> list = sysConfigDao.selectAllParam();
+        list.forEach(one -> {
+            String key = one.getParamKey();
+            key = StrUtil.toCamelCase(key);
+            String value = one.getParamValue();
+            try {
+                Field field = constants.getClass().getDeclaredField(key);
+                field.set(constants, value);
+            } catch (Exception e) {
+                log.error("执行异常", e);
             }
         });
         new File(imageFolder).mkdirs();

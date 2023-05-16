@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/message")
@@ -52,24 +53,24 @@ public class MessageController {
     @ApiOperation("未读消息更新成已读消息")
     public R updateUnreadMessage(@Valid @RequestBody UpdateUnreadMessageForm form) {
         long rows = messageService.updateUnreadMessage(form.getId());
-        return R.ok().put("result", rows == 1 ? true : false);
+        return R.ok().put("result", rows == 1);
     }
 
     @PostMapping("/deleteMessageRefById")
     @ApiOperation("删除消息")
     public R deleteMessageRefById(@Valid @RequestBody DeleteMessageRefByIdForm form) {
         long rows = messageService.deleteMessageRefById(form.getId());
-        return R.ok().put("result", rows == 1 ? true : false);
+        return R.ok().put("result", rows == 1);
     }
 
     @GetMapping("/refreshMessage")
     @ApiOperation("刷新用户消息")
-    public R refreshMessage(@RequestHeader("token") String token){
-        int userId=jwtUtil.getUserId(token);
-        messageTask.receiveAsync(userId+"");
-        long lastRows=messageService.searchLastCount(userId);
-        long unreadRows=messageService.searchUnreadCount(userId);
-        return R.ok().put("lastRows",lastRows).put("unreadRows",unreadRows);
+    public R refreshMessage(@RequestHeader("token") String token) {
+        int userId = jwtUtil.getUserId(token);
+        messageTask.receiveAsync(String.valueOf(userId));
+        long lastRows = messageService.searchLastCount(userId);
+        long unreadRows = messageService.searchUnreadCount(userId);
+        return Objects.requireNonNull(R.ok().put("lastRows", lastRows)).put("unreadRows", unreadRows);
     }
 
 }

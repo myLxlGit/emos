@@ -1,7 +1,9 @@
 package com.example.emos.wx.exception;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class EmosException extends RuntimeException {
     private String msg;

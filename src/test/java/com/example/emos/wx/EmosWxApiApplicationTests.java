@@ -22,6 +22,7 @@ class EmosWxApiApplicationTests {
 
     @Test
     void contextLoads() {
+
         for (int i = 1; i <= 100; i++) {
             MessageEntity message = new MessageEntity();
             message.setUuid(IdUtil.simpleUUID());
@@ -29,9 +30,9 @@ class EmosWxApiApplicationTests {
             message.setSenderName("系统消息");
             message.setMsg("这是第" + i + "条测试消息");
             message.setSendTime(new Date());
-            String id=messageService.insertMessage(message);
+            String id = messageService.insertMessage(message);
 
-            MessageRefEntity ref=new MessageRefEntity();
+            MessageRefEntity ref = new MessageRefEntity();
             ref.setMessageId(id);
             ref.setReceiverId(11); //接收人ID
             ref.setLastFlag(true);
@@ -41,12 +42,13 @@ class EmosWxApiApplicationTests {
     }
 
     @Test
-    void createMeetingData(){
-        for (int i=1;i<=100;i++){
-            TbMeeting meeting=new TbMeeting();
-            meeting.setId((long)i);
+    void createMeetingData() {
+
+        for (int i = 1; i <= 100; i++) {
+            TbMeeting meeting = new TbMeeting();
+            meeting.setId((long) i);
             meeting.setUuid(IdUtil.simpleUUID());
-            meeting.setTitle("测试会议"+i);
+            meeting.setTitle("测试会议" + i);
             meeting.setCreatorId(15L); //ROOT用户ID
             meeting.setDate(DateUtil.today());
             meeting.setPlace("线上会议室");
@@ -56,7 +58,7 @@ class EmosWxApiApplicationTests {
             meeting.setMembers("[15,16]");
             meeting.setDesc("会议研讨Emos项目上线测试");
             meeting.setInstanceId(IdUtil.simpleUUID());
-            meeting.setStatus((short)3);
+            meeting.setStatus((short) 3);
             meetingService.insertMeeting(meeting);
         }
     }

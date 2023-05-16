@@ -70,8 +70,7 @@ public class MessageTask {
                     long deliveryTag = response.getEnvelope().getDeliveryTag();
                     channel.basicAck(deliveryTag, false);
                     i++;
-                }
-                else {
+                } else {
                     break;
                 }
             }
@@ -87,20 +86,20 @@ public class MessageTask {
         return receive(topic);
     }
 
-    public void deleteQueue(String topic){
+    public void deleteQueue(String topic) {
         try (Connection connection = factory.newConnection();
              Channel channel = connection.createChannel();
         ) {
             channel.queueDelete(topic);
             log.debug("消息队列成功删除");
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.error("删除队列失败", e);
             throw new EmosException("删除队列失败");
         }
     }
 
     @Async
-    public void deleteQueueAsync(String topic){
+    public void deleteQueueAsync(String topic) {
         deleteQueue(topic);
     }
 
